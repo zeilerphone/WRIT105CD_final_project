@@ -9,7 +9,7 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public class MouseController : MonoBehaviour
+public class MouseHandler : MonoBehaviour
 {
     public float speed;
     public int range;
@@ -45,7 +45,7 @@ public class MouseController : MonoBehaviour
         {
             if(!isMoving)
             {
-                RaycastHit2D? hit = GetFocusedOnTile();
+                RaycastHit2D? hit = GetMouseHoverTile();
 
                 if(hit.HasValue)
                 {
@@ -59,7 +59,7 @@ public class MouseController : MonoBehaviour
                         {
                             character = Instantiate(characterPrefab).GetComponent<CharacterInfo>();
                             PositionCharacterOnTile(tile);
-                            GetInRangeTiles();
+                            TilesInRange();
                             character.activeTile = tile;
                             vcam.Follow = character.transform;
                             //vcam.transform.position = new Vector3(character.transform.position.x, character.transform.position.y, vcam.transform.position.z + 10);
@@ -103,7 +103,7 @@ public class MouseController : MonoBehaviour
         }
     }
 
-    private void GetInRangeTiles()
+    private void TilesInRange()
     {
         foreach(OverlayTile tile in inRange)
         {
@@ -135,12 +135,12 @@ public class MouseController : MonoBehaviour
 
         if(path.Count == 0)
         {
-            GetInRangeTiles();
+            TilesInRange();
             isMoving = false;
         }
     }
 
-    public RaycastHit2D? GetFocusedOnTile()
+    public RaycastHit2D? GetMouseHoverTile()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 mousePos2D = new(mousePos.x, mousePos.y);

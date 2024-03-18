@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class coinCounter : MonoBehaviour
 {
-    public MouseController MouseController;
+    public MouseHandler MouseController;
     // Start is called before the first frame update
     void Start()
     {
