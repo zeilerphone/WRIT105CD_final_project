@@ -66,7 +66,6 @@ public class MouseHandler : MonoBehaviour
                             //vcam.LookAt = character.transform;
                         } else
                         {
-                            Debug.Log(tile.isBlocked);
                             if(tile.isBlocked)
                             {
                                 return;
@@ -87,7 +86,8 @@ public class MouseHandler : MonoBehaviour
                     //Debug.Log("Moving Character");
                     MoveCharacter();
                 }
-                if(character.activeTile.GetComponent<OverlayTile>().specialTag == "NPC talk" && !isTalking)
+                Debug.Log(character.activeTile.GetComponent<OverlayTile>().hasNPCTrigger );
+                if(character.activeTile.GetComponent<OverlayTile>().hasNPCTrigger && !isTalking)
                 {
                     Debug.Log("Talking to NPC");
                     isTalking = true;
@@ -97,7 +97,7 @@ public class MouseHandler : MonoBehaviour
                     }
                     StartConversation();
                     
-                } else if (character.activeTile.GetComponent<OverlayTile>().specialTag != "NPC talk"){
+                } else if (!character.activeTile.GetComponent<OverlayTile>().hasNPCTrigger){
                     isTalking = false;
                 }
             }

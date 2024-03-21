@@ -17,6 +17,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI nametag;
     public TextMeshProUGUI textComponent;
     static Story _story;
+    List<string> tags;
     static Choice choiceSelected;
 
     public float textSpeed;

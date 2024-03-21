@@ -67,14 +67,15 @@ public class MapManager : MonoBehaviour
                                 overlayTile.GetComponent<OverlayTile>().hasNPC = true;
                                 overlayTile.GetComponent<OverlayTile>().isBlocked = true;
                             }
-                            if(colliders.GetTile(localPlace).name == "NPC talk"){
+                            if(colliders.GetTile(localPlace).name == "highlighted"){
                                 // coins.Add(tileKey);
                                 overlayTile.GetComponent<OverlayTile>().hasNPCTrigger = true;
                             }
-                            if(colliders.GetTile(localPlace).name == "reserved" || colliders.GetTile(localPlace).name == "reserved plant"){
-                                overlayTile.GetComponent<OverlayTile>().isBlocked = true;
-                            }
                             
+                            
+                        }
+                        if(tileMap.GetTile(localPlace).name == "reserved" || tileMap.GetTile(localPlace).name == "reserved plant"){
+                                overlayTile.GetComponent<OverlayTile>().isBlocked = true;
                         }
 
                         //Debug.Log("Tile name: " + tileMap.GetTile(localPlace).name + " at position: " + localPlace + " with key: " + tileKey);
