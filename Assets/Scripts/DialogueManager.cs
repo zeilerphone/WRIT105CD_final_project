@@ -42,11 +42,13 @@ public class DialogueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // only display the UI if the player is talking to an NPC
         if(isTalking)
         {
             textBox.SetActive(true);
             if(Input.GetKeyDown(KeyCode.Space))
-            {
+            {   
+                // check if the story can continue (if there are more lines to read)
                 if(_story.canContinue && _story.currentChoices.Count == 0)
                 {
                     Debug.Log("Continuing...");
@@ -85,6 +87,7 @@ public class DialogueManager : MonoBehaviour
     void NextLine()
     {
         string currentLine = _story.Continue();
+        ParseTags();
         StopAllCoroutines();
         StartCoroutine(TypeLine(currentLine));
     }
@@ -122,6 +125,34 @@ public class DialogueManager : MonoBehaviour
     {
         choiceSelected = (Choice)element;
         _story.ChooseChoiceIndex(choiceSelected.index);
+    }
+
+    void ParseTags()
+    {
+        // get the tags from the current line
+        tags = _story.currentTags;
+        //
+        if(tags.Count > 0)
+        {
+            foreach(string tag in tags)
+            {
+                // tags are structured like this:
+                // # prefix:value  (e.g. #name:Bob -- note no space after the colon)
+                // use C# string split to split the string
+                string [] parsedTag = tag.Split(':');
+                // get the prefix and value
+                string prefix = parsedTag[0];
+                string value = parsedTag[1];
+                // use a switch statement to check the prefix
+                switch(prefix.ToLower())
+                {
+                    case "name":
+                        // set the name tag to the value
+                        nametag.text = value;
+                        break;
+                }
+            }
+        }
     }
 
     void AdvanceFromDecision()

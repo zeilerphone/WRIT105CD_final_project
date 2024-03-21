@@ -15,7 +15,6 @@ public class MapManager : MonoBehaviour
     public Tilemap colliders;
 
     public Dictionary<Vector2Int, OverlayTile> map;
-    public List<Vector2Int> coins;
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -30,7 +29,6 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         map = new Dictionary<Vector2Int, OverlayTile>();
-        coins = new List<Vector2Int>();
         
 
         BoundsInt bounds = tileMap.cellBounds;
@@ -58,17 +56,11 @@ public class MapManager : MonoBehaviour
 
                         if (colliders.HasTile(localPlace))
                         {
-                            if(colliders.GetTile(localPlace).name == "coin" && !coins.Contains(tileKey)){
-                                coins.Add(tileKey);
-                                overlayTile.GetComponent<OverlayTile>().hasCoin = true;
-                            }
                             if(colliders.GetTile(localPlace).name == "NPC"){
-                                // coins.Add(tileKey);
                                 overlayTile.GetComponent<OverlayTile>().hasNPC = true;
                                 overlayTile.GetComponent<OverlayTile>().isBlocked = true;
                             }
                             if(colliders.GetTile(localPlace).name == "highlighted"){
-                                // coins.Add(tileKey);
                                 overlayTile.GetComponent<OverlayTile>().hasNPCTrigger = true;
                             }
                             
@@ -147,14 +139,4 @@ public class MapManager : MonoBehaviour
         // Debug.Log(neighborTiles);
         return neighborTiles;
     }
-
-    public void deleteCoinAt(Vector2Int position)
-    {
-        if(coins.Contains(position))
-        {
-            coins.Remove(position);
-            colliders.SetTile(new Vector3Int(position.x, position.y, 4), null);
-        }
-    }
-    
 }

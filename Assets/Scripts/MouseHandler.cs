@@ -13,7 +13,6 @@ public class MouseHandler : MonoBehaviour
 {
     public float speed;
     public int range;
-    public int numCoins;
     public int NPCTalkIndex;
     private bool isTalking = false;
     private bool isMoving = false;
@@ -173,13 +172,7 @@ public class MouseHandler : MonoBehaviour
         character.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y + 0.0001f, tile.transform.position.z );
         character.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 1;
         character.activeTile = tile;
-        if(tile.hasCoin)
-        {
-            numCoins++;
-            tile.hasCoin = false;
-            conversation.setCoins(numCoins);
-            MapManager.Instance.deleteCoinAt(tile.grid2DPosition);
-        }
+
     }
 
     void StartConversation()
