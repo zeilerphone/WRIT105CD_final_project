@@ -66,6 +66,7 @@ public class MouseHandler : MonoBehaviour
                             //vcam.LookAt = character.transform;
                         } else
                         {
+                            Debug.Log(tile.isBlocked);
                             if(tile.isBlocked)
                             {
                                 return;
@@ -110,12 +111,20 @@ public class MouseHandler : MonoBehaviour
             tile.SetHidden();
         }
 
-        inRange = rangeFinder.FindRange(character.activeTile, range);
-
-        foreach(OverlayTile tile in inRange)
+        if(range == 0)
         {
-            tile.SetVisible();
+            inRange = MapManager.Instance.map.Values.ToList();
+            character.activeTile.SetVisible();
+        } else
+        {
+            inRange = rangeFinder.FindRange(character.activeTile, range);
+            foreach(OverlayTile tile in inRange)
+            {
+                tile.SetVisible();
+            }
         }
+        // inRange = rangeFinder.FindRange(character.activeTile, range);
+
         //character.activeTile.GetComponent<SpriteRenderer>().color = character.activeTile.active;
     }
     private void MoveCharacter()

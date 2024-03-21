@@ -10,6 +10,8 @@ public class OverlayTile : MonoBehaviour
     public int F { get { return G + H; } }
     public bool isBlocked = false;
     public bool hasCoin = false;
+    public bool hasNPC = false;
+    public bool hasNPCTrigger = false;
     public OverlayTile previous;
     public Vector3Int gridPosition;
     public Vector2Int grid2DPosition { get { return new Vector2Int(gridPosition.x, gridPosition.y); } }

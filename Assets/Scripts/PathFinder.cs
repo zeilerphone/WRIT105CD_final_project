@@ -6,10 +6,25 @@ using UnityEngine;
 
 public class PathFinder 
 {
-    public List<OverlayTile> FindPath(OverlayTile start, OverlayTile end, List<OverlayTile> searchable)
+    private Dictionary<Vector2Int, OverlayTile> searchableTiles;
+    public List<OverlayTile> FindPath(OverlayTile start, OverlayTile end, List<OverlayTile> inRangeTiles)
     {
+        searchableTiles = new Dictionary<Vector2Int, OverlayTile>();
+
         List<OverlayTile> openList = new List<OverlayTile>();
         List<OverlayTile> closedList = new List<OverlayTile>();
+
+        if (inRangeTiles.Count > 0)
+        {
+            foreach (OverlayTile tile in inRangeTiles)
+            {
+                searchableTiles.Add(tile.grid2DPosition, tile);
+            }
+        }
+        else
+        {
+            searchableTiles = MapManager.Instance.map;
+        }
 
         openList.Add(start);
 
@@ -27,7 +42,7 @@ public class PathFinder
                 return GetFinishedList(start, end);
             }
 
-            List<OverlayTile> neighborTiles = MapManager.Instance.GetNeighborTiles(currentOverlayTile, searchable);
+            List<OverlayTile> neighborTiles = MapManager.Instance.GetNeighborTiles(currentOverlayTile, inRangeTiles);
 
             foreach(OverlayTile tile in neighborTiles)
             {
@@ -71,7 +86,6 @@ public class PathFinder
     {
         return Mathf.Abs(start.gridPosition.x - end.gridPosition.x) + Mathf.Abs(start.gridPosition.y - end.gridPosition.y);
     }
-
     
 }
 

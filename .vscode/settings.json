@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "coding_exp4.sln"
+    "dotnet.defaultSolution": "final.sln"
 }

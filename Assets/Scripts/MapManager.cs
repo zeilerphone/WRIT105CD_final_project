@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -30,6 +31,7 @@ public class MapManager : MonoBehaviour
     {
         map = new Dictionary<Vector2Int, OverlayTile>();
         coins = new List<Vector2Int>();
+        
 
         BoundsInt bounds = tileMap.cellBounds;
 
@@ -54,24 +56,39 @@ public class MapManager : MonoBehaviour
 
                         overlayTile.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.0f);
 
-                        if (colliders.HasTile(localPlace) && !coins.Contains(tileKey))
+                        if (colliders.HasTile(localPlace))
                         {
-                            coins.Add(tileKey);
-                            overlayTile.GetComponent<OverlayTile>().hasCoin = true;
+                            if(colliders.GetTile(localPlace).name == "coin" && !coins.Contains(tileKey)){
+                                coins.Add(tileKey);
+                                overlayTile.GetComponent<OverlayTile>().hasCoin = true;
+                            }
+                            if(colliders.GetTile(localPlace).name == "NPC"){
+                                // coins.Add(tileKey);
+                                overlayTile.GetComponent<OverlayTile>().hasNPC = true;
+                                overlayTile.GetComponent<OverlayTile>().isBlocked = true;
+                            }
+                            if(colliders.GetTile(localPlace).name == "NPC talk"){
+                                // coins.Add(tileKey);
+                                overlayTile.GetComponent<OverlayTile>().hasNPCTrigger = true;
+                            }
+                            if(colliders.GetTile(localPlace).name == "reserved" || colliders.GetTile(localPlace).name == "reserved plant"){
+                                overlayTile.GetComponent<OverlayTile>().isBlocked = true;
+                            }
+                            
                         }
 
                         //Debug.Log("Tile name: " + tileMap.GetTile(localPlace).name + " at position: " + localPlace + " with key: " + tileKey);
-                        if(localPlace == new Vector3Int(3,4,4))
-                        {
-                            overlayTile.GetComponent<OverlayTile>().specialTag = "NPC talk";
-                            overlayTile.GetComponent<SpriteRenderer>().color = new Color(143,237,255, 0);
-                        }
+                        // if(localPlace == new Vector3Int(3,4,4))
+                        // {
+                        //     overlayTile.GetComponent<OverlayTile>().specialTag = "NPC talk";
+                        //     overlayTile.GetComponent<SpriteRenderer>().color = new Color(143,237,255, 0);
+                        // }
 
-                        if(localPlace == new Vector3Int(4,4,4))
-                        {
-                            overlayTile.GetComponent<OverlayTile>().specialTag = "NPC";
-                            overlayTile.GetComponent<OverlayTile>().isBlocked = true;
-                        }
+                        // if(localPlace == new Vector3Int(4,4,4))
+                        // {
+                        //     overlayTile.GetComponent<OverlayTile>().specialTag = "NPC";
+                        //     overlayTile.GetComponent<OverlayTile>().isBlocked = true;
+                        // }
 
                         //Debug.Log("Tile name: " + tileMap.GetTile(localPlace).name);
                         // if(tileMap.GetTile(localPlace).name == "water"){
