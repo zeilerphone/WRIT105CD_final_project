@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: IdleSouth
+  m_Name: RunWest
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,15 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -4619871484898644112, guid: f9fc99f3f7fa336448456e3f4bd76814, type: 3}
-    - time: 0.9
-      value: {fileID: -4619871484898644112, guid: f9fc99f3f7fa336448456e3f4bd76814, type: 3}
+      value: {fileID: 3748780431855562942, guid: f9fc99f3f7fa336448456e3f4bd76814, type: 3}
+    - time: 0.099999905
+      value: {fileID: 1955451424161939672, guid: f9fc99f3f7fa336448456e3f4bd76814, type: 3}
+    - time: 0.20000005
+      value: {fileID: 8586199092282012102, guid: f9fc99f3f7fa336448456e3f4bd76814, type: 3}
+    - time: 0.29999995
+      value: {fileID: 8186838062887345453, guid: f9fc99f3f7fa336448456e3f4bd76814, type: 3}
+    - time: 0.39999995
+      value: {fileID: 8186838062887345453, guid: f9fc99f3f7fa336448456e3f4bd76814, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -42,7 +48,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.90999997
+    m_StopTime: 0.40999994
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

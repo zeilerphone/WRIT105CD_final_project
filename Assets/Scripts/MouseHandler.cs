@@ -13,12 +13,16 @@ public class MouseHandler : MonoBehaviour
 {
     public float speed;
     public int range;
+    public int zoom;
+    private int maxZoom = 10;
+    private int minZoom = 3;
     public int NPCTalkIndex;
     private bool isTalking = false;
     private bool isMoving = false;
     public CinemachineVirtualCamera vcam;
     public DialogueManager conversation;
 
+    public Animator characterAnimator;
     public GameObject characterPrefab;
     private CharacterInfo character;
 
@@ -61,6 +65,8 @@ public class MouseHandler : MonoBehaviour
                             TilesInRange();
                             character.activeTile = tile;
                             vcam.Follow = character.transform;
+                            vcam.m_Lens.OrthographicSize = zoom;
+                            characterAnimator = character.GetComponent<Animator>();
                             //vcam.transform.position = new Vector3(character.transform.position.x, character.transform.position.y, vcam.transform.position.z + 10);
                             //vcam.LookAt = character.transform;
                         } else
@@ -85,7 +91,7 @@ public class MouseHandler : MonoBehaviour
                     //Debug.Log("Moving Character");
                     MoveCharacter();
                 }
-                Debug.Log(character.activeTile.GetComponent<OverlayTile>().hasNPCTrigger );
+                //Debug.Log(character.activeTile.GetComponent<OverlayTile>().hasNPCTrigger );
                 if(character.activeTile.GetComponent<OverlayTile>().hasNPCTrigger && !isTalking)
                 {
                     Debug.Log("Talking to NPC");
@@ -98,6 +104,21 @@ public class MouseHandler : MonoBehaviour
                     
                 } else if (!character.activeTile.GetComponent<OverlayTile>().hasNPCTrigger){
                     isTalking = false;
+                }
+            }
+
+            if(Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if(zoom < maxZoom){
+                    zoom ++;
+                    vcam.m_Lens.OrthographicSize = zoom;
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if(zoom > minZoom){
+                    zoom --;
+                    vcam.m_Lens.OrthographicSize = zoom;
                 }
             }
         }
@@ -129,9 +150,14 @@ public class MouseHandler : MonoBehaviour
     private void MoveCharacter()
     {   
         isMoving = true;
+        characterAnimator.SetBool("isWalking", true);
         float step = speed * Time.deltaTime;
         float z = path[0].transform.position.z;
 
+        Vector2 moveDirection = path[0].transform.position - character.transform.position;
+        characterAnimator.SetFloat("x", moveDirection.x);
+        characterAnimator.SetFloat("y", moveDirection.y);
+        Debug.Log(moveDirection);
         character.transform.position = Vector2.MoveTowards(character.transform.position, path[0].transform.position, step);
         character.transform.position = new Vector3(character.transform.position.x, character.transform.position.y, z);
 
@@ -145,6 +171,7 @@ public class MouseHandler : MonoBehaviour
         {
             TilesInRange();
             isMoving = false;
+            characterAnimator.SetBool("isWalking", false);
         }
     }
 

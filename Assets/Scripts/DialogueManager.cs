@@ -37,9 +37,9 @@ public class DialogueManager : MonoBehaviour
         indexMap.Add(0, "start");
         indexMap.Add(1, "suburb");
         indexMap.Add(2, "suburb_fix");
-        indexMap.Add(1, "stripmall");
-        indexMap.Add(5, "mid_density");
-        indexMap.Add(6, "mid_density_fix");
+        indexMap.Add(3, "stripmall");
+        indexMap.Add(4, "mid_density");
+        indexMap.Add(5, "mid_density_fix");
     }
 
     // Update is called once per frame
