@@ -34,9 +34,12 @@ public class DialogueManager : MonoBehaviour
         optionPanel.SetActive(false);
         //StartDialogue();
         textBox.SetActive(false);
-        indexMap.Add(0, "first_interaction");
-        indexMap.Add(1, "other_interaction");
-        _story.variablesState["num_coins_needed"] = numCoinsNeeded;
+        indexMap.Add(0, "start");
+        indexMap.Add(1, "suburb");
+        indexMap.Add(2, "suburb_fix");
+        indexMap.Add(1, "stripmall");
+        indexMap.Add(5, "mid_density");
+        indexMap.Add(6, "mid_density_fix");
     }
 
     // Update is called once per frame
@@ -73,10 +76,6 @@ public class DialogueManager : MonoBehaviour
     public void setIndex(int i)
     {
         _story.ChoosePathString(indexMap[i]);
-    }
-    public void setCoins(int c)
-    {
-        _story.variablesState["coins"] = c;
     }
     private void FinishDialogue()
     {
@@ -154,7 +153,6 @@ public class DialogueManager : MonoBehaviour
             }
         }
     }
-
     void AdvanceFromDecision()
     {
         optionPanel.SetActive(false);

@@ -13,6 +13,19 @@ public class MapManager : MonoBehaviour
     public GameObject overlayContainer;
     public Tilemap tileMap;
     public Tilemap colliders;
+    public enum Region{
+        start,
+        stripmall,
+        stripmall_fix,
+        suburb,
+        suburb_fix,
+        mid_density,
+        mid_density_fix
+    }
+
+    public Dictionary<Region, Vector2Int> spawnPoints;
+
+    public Region currentRegion;
 
     public Dictionary<Vector2Int, OverlayTile> map;
     private void Awake()
@@ -29,7 +42,8 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         map = new Dictionary<Vector2Int, OverlayTile>();
-        
+
+        currentRegion = Region.start;
 
         BoundsInt bounds = tileMap.cellBounds;
 
@@ -69,35 +83,10 @@ public class MapManager : MonoBehaviour
                         if(tileMap.GetTile(localPlace).name == "reserved" || tileMap.GetTile(localPlace).name == "reserved plant"){
                                 overlayTile.GetComponent<OverlayTile>().isBlocked = true;
                         }
-
-                        //Debug.Log("Tile name: " + tileMap.GetTile(localPlace).name + " at position: " + localPlace + " with key: " + tileKey);
-                        // if(localPlace == new Vector3Int(3,4,4))
-                        // {
-                        //     overlayTile.GetComponent<OverlayTile>().specialTag = "NPC talk";
-                        //     overlayTile.GetComponent<SpriteRenderer>().color = new Color(143,237,255, 0);
-                        // }
-
-                        // if(localPlace == new Vector3Int(4,4,4))
-                        // {
-                        //     overlayTile.GetComponent<OverlayTile>().specialTag = "NPC";
-                        //     overlayTile.GetComponent<OverlayTile>().isBlocked = true;
-                        // }
-
-                        //Debug.Log("Tile name: " + tileMap.GetTile(localPlace).name);
-                        // if(tileMap.GetTile(localPlace).name == "water"){
-                        //     overlayTile.GetComponent<OverlayTile>().isBlocked = true;
-                        // }
                     }
-                    
                 }
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public List<OverlayTile> GetNeighborTiles(OverlayTile currentOverlayTile, List<OverlayTile> searchable = null)

@@ -182,7 +182,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: mixed_use_back
+  - name: mixed_use_north
     originalName: 
     pivot: {x: 0.47080293, y: 0.033333335}
     alignment: 9
@@ -222,7 +222,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: mixed_use_front
+  - name: mixed_use_south
     originalName: 
     pivot: {x: 0.46570396, y: 0.033333335}
     alignment: 9
@@ -294,6 +294,126 @@ ScriptedImporter:
       width: 256
       height: 232
     spriteID: 24080021cd91bb844905a5e432276ce4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: mixed_use_east
+    originalName: 
+    pivot: {x: 0.5291971, y: 0.029166669}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 436
+      y: 788
+      width: 274
+      height: 240
+    spriteID: 7866ddf52ced11c44a82f5fd212adc27
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: mixed_use_west
+    originalName: 
+    pivot: {x: 0.53429604, y: 0.033333335}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 433
+      y: 532
+      width: 277
+      height: 240
+    spriteID: 78f6aa30769365847be538301b6d813b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: mixed_use_double
+    originalName: 
+    pivot: {x: 0.5, y: 0.03448276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 993
+      y: 516
+      width: 264
+      height: 232
+    spriteID: f0e03db0fea018b4a8741c921978fd83
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: stripmall_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 44
+      width: 17
+      height: 40
+    spriteID: 398d1cac05e75ef41a6c1390b4594bbd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: stripmall_4
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 37
+      y: 44
+      width: 16
+      height: 40
+    spriteID: b23d5640bd47d82459bdfd1b98c492b6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: stripmall_5
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 13
+      y: 4
+      width: 32
+      height: 32
+    spriteID: 8390d30653fc27b4d91715ad671f014d
     spriteBone: []
     spriteOutline: []
     vertices: []
