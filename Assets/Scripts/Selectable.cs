@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 public class Selectable : MonoBehaviour
 {
@@ -5,5 +7,6 @@ public class Selectable : MonoBehaviour
     public void Decide()
     {
         DialogueManager.SetDecision(element);
+        //Debug.Log("Decided: " + element.ToString());
     }
 }

@@ -17,6 +17,7 @@ public class MouseHandler : MonoBehaviour
     private int maxZoom = 10;
     private int minZoom = 3;
     public int NPCTalkIndex;
+    public int regionIndex = 0;
     private bool isTalking = false;
     private bool isMoving = false;
     public CinemachineVirtualCamera vcam;
@@ -92,14 +93,12 @@ public class MouseHandler : MonoBehaviour
                     MoveCharacter();
                 }
                 //Debug.Log(character.activeTile.GetComponent<OverlayTile>().hasNPCTrigger );
-                if(character.activeTile.GetComponent<OverlayTile>().hasNPCTrigger && !isTalking)
+                if(character.activeTile.GetComponent<OverlayTile>().hasNPCTrigger && !isTalking && !isMoving)
                 {
                     Debug.Log("Talking to NPC");
                     isTalking = true;
-                    if(NPCTalkIndex <= 1){
-                        conversation.setIndex(NPCTalkIndex);
-                        NPCTalkIndex ++;
-                    }
+                    
+                    conversation.setStoryKnot(conversation.getStoryKnot());
                     StartConversation();
                     
                 } else if (!character.activeTile.GetComponent<OverlayTile>().hasNPCTrigger){
@@ -120,6 +119,17 @@ public class MouseHandler : MonoBehaviour
                     zoom --;
                     vcam.m_Lens.OrthographicSize = zoom;
                 }
+            }
+            if(Input.GetMouseButtonDown(1))
+            {
+                MapManager.Instance.ToggleBuildings();
+            }
+
+            if(conversation.getIndex() != regionIndex)
+            {
+                // the player should be moved to a new region
+                regionIndex = conversation.getIndex();
+                RegionSwitch(regionIndex);
             }
         }
     }
@@ -204,5 +214,10 @@ public class MouseHandler : MonoBehaviour
     void StartConversation()
     {
         conversation.isTalking = true;
+    }
+
+    public void RegionSwitch(int index)
+    {
+        PositionCharacterOnTile(MapManager.Instance.spawnPoints[(MapManager.Region)index]);
     }
 }

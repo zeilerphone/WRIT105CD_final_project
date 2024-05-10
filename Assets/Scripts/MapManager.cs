@@ -15,15 +15,14 @@ public class MapManager : MonoBehaviour
     public Tilemap colliders;
     public enum Region{
         start,
-        stripmall,
-        stripmall_fix,
         suburb,
         suburb_fix,
-        mid_density,
-        mid_density_fix
+        stripmall,
+        improvement1,
+        improvement2
     }
 
-    public Dictionary<Region, Vector2Int> spawnPoints;
+    public Dictionary<Region, OverlayTile> spawnPoints;
 
     public Region currentRegion;
 
@@ -44,6 +43,7 @@ public class MapManager : MonoBehaviour
         map = new Dictionary<Vector2Int, OverlayTile>();
 
         currentRegion = Region.start;
+        spawnPoints = new Dictionary<Region, OverlayTile>();
 
         BoundsInt bounds = tileMap.cellBounds;
 
@@ -80,13 +80,19 @@ public class MapManager : MonoBehaviour
                             
                             
                         }
-                        if(tileMap.GetTile(localPlace).name == "reserved" || tileMap.GetTile(localPlace).name == "reserved plant"){
+                        if(tileMap.GetTile(localPlace).name == "reserved" || tileMap.GetTile(localPlace).name == "reserved_plant"){
                                 overlayTile.GetComponent<OverlayTile>().isBlocked = true;
                         }
                     }
                 }
             }
         }
+        spawnPoints.Add(Region.start, map[new Vector2Int(-1,-1)]);
+        spawnPoints.Add(Region.suburb, map[new Vector2Int(28,73)]);
+        spawnPoints.Add(Region.suburb_fix, map[new Vector2Int(-51,135)]);
+        spawnPoints.Add(Region.stripmall, map[new Vector2Int(-22,-101)]);
+        spawnPoints.Add(Region.improvement1, map[new Vector2Int(-187,2)]);
+        spawnPoints.Add(Region.improvement2, map[new Vector2Int(-82,2)]);
     }
 
     public List<OverlayTile> GetNeighborTiles(OverlayTile currentOverlayTile, List<OverlayTile> searchable = null)
@@ -127,5 +133,10 @@ public class MapManager : MonoBehaviour
 
         // Debug.Log(neighborTiles);
         return neighborTiles;
+    }
+
+    public void ToggleBuildings()
+    {
+        colliders.gameObject.SetActive(!colliders.gameObject.activeSelf);
     }
 }

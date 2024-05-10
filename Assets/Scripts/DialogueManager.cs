@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     public TextAsset inkJSON;
-    public int numCoinsNeeded;
     public GameObject textBox;
     public GameObject customButton;
     public GameObject optionPanel;
@@ -17,12 +16,15 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI nametag;
     public TextMeshProUGUI textComponent;
     static Story _story;
-    List<string> tags;
+    //List<string> tags;
     static Choice choiceSelected;
 
     public float textSpeed;
 
     private Dictionary<int, string> indexMap = new Dictionary<int, string>();
+    private bool isTyping = false;
+    private bool typeInterrupt = false;
+    private bool firstLine = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,8 +40,8 @@ public class DialogueManager : MonoBehaviour
         indexMap.Add(1, "suburb");
         indexMap.Add(2, "suburb_fix");
         indexMap.Add(3, "stripmall");
-        indexMap.Add(4, "mid_density");
-        indexMap.Add(5, "mid_density_fix");
+        indexMap.Add(4, "improvement1");
+        indexMap.Add(5, "improvement2");
     }
 
     // Update is called once per frame
@@ -47,76 +49,105 @@ public class DialogueManager : MonoBehaviour
     {
         // only display the UI if the player is talking to an NPC
         if(isTalking)
-        {
+        {   
+            if(firstLine) {
+                firstLine = false;
+                NextLine();
+            }
             textBox.SetActive(true);
             if(Input.GetKeyDown(KeyCode.Space))
             {   
-                // check if the story can continue (if there are more lines to read)
-                if(_story.canContinue && _story.currentChoices.Count == 0)
-                {
-                    Debug.Log("Continuing...");
-                    NextLine();
-                    if(_story.currentChoices.Count != 0)
+                if(!isTyping){
+                    // check if the story can continue (if there are more lines to read)
+                    if(_story.canContinue && _story.currentChoices.Count == 0)
                     {
-                        StartCoroutine(ShowChoices());
+                        Debug.Log("Continuing...");
+                        NextLine();
+                    } 
+                    else if(_story.currentChoices.Count == 0)
+                    {
+                        StopAllCoroutines();
+                        FinishDialogue();
+                    } else {
+                        Debug.Log("Choices Exist");
                     }
-                } 
-                else if(_story.canContinue && _story.currentChoices.Count != 0)
-                {
-                    //StartCoroutine(ShowChoices());
-                } 
-                else
-                {
-                    StopAllCoroutines();
-                    FinishDialogue();
+                } else {
+                    typeInterrupt = true;
                 }
             }
+        } else  {
+            return;
         }
     }
     public void setIndex(int i)
     {
         _story.ChoosePathString(indexMap[i]);
     }
+    public string getStoryKnot()
+    {
+        return _story.variablesState["current_knot"].ToString();
+    }
+    public int getIndex()
+    {
+        return (int)_story.variablesState["index"];
+    }
+    public void setStoryKnot(string knot)
+    {
+        _story.ChoosePathString(knot);
+    }
     private void FinishDialogue()
     {
         textBox.SetActive(false);
         isTalking = false;
+        firstLine = true;
     }
 
     void NextLine()
     {
         string currentLine = _story.Continue();
-        ParseTags();
+        Debug.Log("Current Line: " + currentLine);
         StopAllCoroutines();
         StartCoroutine(TypeLine(currentLine));
+        if(_story.currentChoices.Count != 0)
+        {
+            StartCoroutine(ShowChoices());
+        }
     }
 
     IEnumerator TypeLine(string line)
     {
+        isTyping = true;
         textComponent.text = string.Empty;
         foreach (char letter in line.ToCharArray())
         {
             textComponent.text += letter;
             yield return new WaitForSeconds(textSpeed);
+            if(typeInterrupt) {
+                textComponent.text = line;
+                isTyping = false;
+                typeInterrupt = false;
+                break;
+            }
         }
+        isTyping = false;
     }
 
     IEnumerator ShowChoices()
     {
         List<Choice> _choices = _story.currentChoices;
-
+        Debug.Log("Choices: " + _choices.Count);
         for(int i = 0; i < _choices.Count; i++)
         {
             GameObject button = Instantiate(customButton, optionPanel.transform);
+            Debug.Log("Creating button: " + _choices[i].text);
             button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _choices[i].text;
             button.AddComponent<Selectable>();
             button.GetComponent<Selectable>().element = _choices[i];
-            button.GetComponent<Button>().onClick.AddListener(() => button.GetComponent<Selectable>().Decide());
-            
+            button.GetComponent<Button>().onClick.AddListener(() => {button.GetComponent<Selectable>().Decide(); });
         }
         optionPanel.SetActive(true);
+        Debug.Log("Waiting for choice...");
         yield return new WaitUntil(() => {return choiceSelected != null;});
-
         AdvanceFromDecision();
     }
 
@@ -124,34 +155,6 @@ public class DialogueManager : MonoBehaviour
     {
         choiceSelected = (Choice)element;
         _story.ChooseChoiceIndex(choiceSelected.index);
-    }
-
-    void ParseTags()
-    {
-        // get the tags from the current line
-        tags = _story.currentTags;
-        //
-        if(tags.Count > 0)
-        {
-            foreach(string tag in tags)
-            {
-                // tags are structured like this:
-                // # prefix:value  (e.g. #name:Bob -- note no space after the colon)
-                // use C# string split to split the string
-                string [] parsedTag = tag.Split(':');
-                // get the prefix and value
-                string prefix = parsedTag[0];
-                string value = parsedTag[1];
-                // use a switch statement to check the prefix
-                switch(prefix.ToLower())
-                {
-                    case "name":
-                        // set the name tag to the value
-                        nametag.text = value;
-                        break;
-                }
-            }
-        }
     }
     void AdvanceFromDecision()
     {
