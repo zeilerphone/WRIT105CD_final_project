@@ -206,13 +206,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 144006579}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 144006581}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -544,6 +544,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013c12a4716172a4aad28e0c6cbb3a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onPlay:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &322545084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,8 +1096,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: -300, y: -250}
+  m_AnchoredPosition: {x: 0, y: 50}
+  m_SizeDelta: {x: -300, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1838326132
 MonoBehaviour:
@@ -1116,7 +1119,19 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[insert sources]'
+  m_text: "Abramson, Ben. \u201CWhy Is It so Difficult to Build Walkable Places?\u201D
+    Strong Towns, Strong Towns, 6 Sept. 2023, www.strongtowns.org/journal/2023/2/14/why-so-difficult-build-walkable-places.\n\nAbramson,
+    Ben. \u201C5 Telltale Signs You\u2019re on the Stroad from Hell.\u201D Strong
+    Towns, Strong Towns, 6 Sept. 2023, www.strongtowns.org/journal/2023/1/19/5-telltale-signs-youre-on-the-stroad-from-hell.\r\n\nForsyth,
+    Ann. \u201CWhat is a walkable place? the walkability debate in urban design.\u201D
+    URBAN DESIGN International, vol. 20, no. 4, 14 Oct. 2015, pp. 274\u2013292, https://doi.org/10.1057/udi.2015.22.\r\n\nMann,
+    Adam. \u201CWhat\u2019s up with That: Building Bigger Roads Actually Makes Traffic
+    Worse.\u201D Wired, Conde Nast, 17 June 2014, www.wired.com/2014/06/wuwt-traffic-induced-demand/.
+    Accessed 09 May 2024. \n\nNugent, Ciara. \u201CParking Lots Are Bad for Climate.
+    California Has a Plan.\u201D Time, Time, 28 Sept. 2022, time.com/6217873/parking-lots-climate-change-california/.\n\nPutol,
+    Rodielon. \u201CUrban Greening Is a Powerful Weapon against Air Pollution.\u201D
+    Earth.Com, 22 Mar. 2024, www.earth.com/news/urban-greening-is-a-powerful-weapon-against-air-pollution/.
+    Accessed 10 May 2024. \r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1143,8 +1158,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
